@@ -6,7 +6,6 @@ use std::fmt;
 // --- 1. Formal Logic in Types (Ensuring Invariants for Protocol) ---
 
 /// A custom type that can only be constructed if the URL is non-empty.
-/// Prevents empty-string URLs from entering the system.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerifiedUrl(String);
 
@@ -28,7 +27,6 @@ impl VerifiedUrl {
 // --- 2. Formal Verification of a Web Standard (Origin Policy) ---
 
 /// A formal list of all allowed origins for postMessage verification.
-/// This enum is the policy itself, making the trusted origins auditable.
 #[derive(Debug, Clone)]
 pub enum OriginPolicy {
     ExtensionService,
