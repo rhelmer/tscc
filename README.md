@@ -98,12 +98,6 @@ Our implemented Rust code addresses the following goals:
 3.  Created a compiler-verified `handle_message` function demonstrating **exhaustiveness**.
 4.  Implemented `VerifiedOrigin` and `OriginPolicy` to formally verify an incoming web standard parameter (origin) before processing a message.
 
-That is an excellent idea for a "Further Reading" section to ground the project in existing academic and industry work.
-
-Here is a new section for your `README.md` that connects the project's goals (Formal Verification, Structured Reasoning, Rust) to relevant research.
-
----
-
 ## 4. Academic Context & Further Reading
 
 The goal of leveraging the compiler's strength for security is not new; it is an active area of research that aims to replace fragile runtime checks with compile-time guarantees.
