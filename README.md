@@ -97,3 +97,31 @@ Our implemented Rust code addresses the following goals:
 2.  Implemented `serde` serialization/deserialization.
 3.  Created a compiler-verified `handle_message` function demonstrating **exhaustiveness**.
 4.  Implemented `VerifiedOrigin` and `OriginPolicy` to formally verify an incoming web standard parameter (origin) before processing a message.
+
+That is an excellent idea for a "Further Reading" section to ground the project in existing academic and industry work.
+
+Here is a new section for your `README.md` that connects the project's goals (Formal Verification, Structured Reasoning, Rust) to relevant research.
+
+---
+
+## 4. Academic Context & Further Reading
+
+The goal of leveraging the compiler's strength for security is not new; it is an active area of research that aims to replace fragile runtime checks with compile-time guarantees.
+
+### 4.1. Formal Verification in Systems Programming
+
+The core idea of enforcing correctness through Rust's type system is a form of **Lightweight Formal Methods**. This is a powerful trend in the development of high-assurance software, especially for operating system kernels, hypervisors, and security-critical infrastructure.
+
+* **Verus / Prusti / Creusot:** These projects are SMT-based (Satisfiability Modulo Theories) verifiers that allow developers to write formal specifications (pre/post-conditions, invariants) directly into Rust code. TSCC's use of types to enforce a rule that **cannot be violated** aligns with the spirit of these more advanced techniques.
+    * *Source:* The Prusti Project: Formal Verification for Rust (ResearchGate)
+    * *Source:* Verus: Verifying Rust Programs using Linear Ghost Types (extended version) (arXiv)
+* **The RustBelt Project:** This foundational work provides the formal semantic model for Rust's `unsafe` code and ownership model, ensuring the core memory safety guarantees hold even at the lowest level. The *safe* abstractions built on top of this (like TSCC) inherit these guarantees.
+
+### 4.2. Web Standard and Browser Security
+
+The problem of ensuring a complex standard like the "Origin Policy" is correctly implemented has been a primary security concern for major browser vendors.
+
+* **Chromium Site Isolation:** Google's work on Site Isolation, while primarily an architectural fix, demonstrates the industry's need for strict, non-bypassable policy enforcement across trust boundaries—the same high-level goal as `VerifiedOrigin`.
+    * *Source:* [Site Isolation - The Chromium Projects](https://www.chromium.org/Home/chromium-security/site-isolation/)
+* **Formal Shim Verification (QUARK):** Earlier research demonstrated that security guarantees (like Tab Non-Interference) can be formally established by verifying a **small, critical kernel** (or "shim") that mediates all access to resources. TSCC's message handler acts as a similar, verified shim for cross-context communication.
+    * *Source:* [Establishing Browser Security Guarantees through Formal Shim Verification (USENIX)](https://www.usenix.org/system/files/conference/usenixsecurity12/sec12-final217.pdf)
