@@ -7,8 +7,6 @@ This project demonstrates two use cases for formal verification via Rust's type 
 1.  **Compile-Time Protocol Verification:** Guaranteeing message passing integrity.
 2.  **Web Standard Invariant Enforcement:** Creating types that can only represent valid, policy-compliant states for web concepts (like communication origins).
 
------
-
 ## 1\. Protocol Verification: Structured Reasoning
 
 We model the entire communication protocol using **Algebraic Data Types (ADTs)**, forcing the **compiler** to verify the completeness and exhaustiveness of our communication handlers.
@@ -69,8 +67,6 @@ classDiagram
     RequestMessage o-- PolicyAction
 ```
 
------
-
 ## 2\. Web Standard Verification: Origin Safety
 
 We use a custom type (`VerifiedOrigin`) and an explicit policy (`OriginPolicy`) to ensure that any inter-window or cross-iframe communication is only processed if the origin is explicitly trusted.
@@ -87,8 +83,6 @@ flowchart LR
     B -- Untrusted Origin --> E["Policy Violation Error (Prevented at Construction)"]
 ```
 
------
-
 ## 3\. Scope & Usage (Hackathon Goal)
 
 Our implemented Rust code addresses the following goals:
@@ -97,6 +91,29 @@ Our implemented Rust code addresses the following goals:
 2.  Implemented `serde` serialization/deserialization.
 3.  Created a compiler-verified `handle_message` function demonstrating **exhaustiveness**.
 4.  Implemented `VerifiedOrigin` and `OriginPolicy` to formally verify an incoming web standard parameter (origin) before processing a message.
+
+## Future Improvement Ideas and Security Enhancements
+
+The Type Safe Comms Crate (TSCC) currently enforces basic protocol completeness and origin safety. For future high-assurance and security-critical applications, the following enhancements could be explored:
+
+### 1. Hardened Message Invariants (Security Focus)
+
+Expand the use of custom, compiler-verified types to enforce complex security policies within message structs:
+
+* **Capability-Based Access Control:** Define types (e.g., `AuthToken`, `PermissionTicket`) that must be present in a message struct to enable privileged actions. The compiler would prevent the construction or handling of a sensitive message type without the required token wrapper.
+* **Guaranteed Value Ranges:** Use generic type wrappers to enforce numerical security invariants.
+    * *Example:* A `VerifiedU64<MIN, MAX>` type to ensure fields like file sizes, buffer lengths, or time-to-live (`ttl`) are always within a safe, non-exploitable range at the point of message creation.
+* **Protocol Scheme Enforcement:** Introduce types that strictly enforce the network protocol (e.g., a `HttpsOrigin` type that cannot be constructed from an `http://` or `ftp://` string), ensuring external communication is always secure.
+
+### 2. Formal State-Machine Verification
+
+Implement stricter verification of message *ordering* and *state* to prevent protocol desynchronization and out-of-order attacks:
+
+* **Linear/Affine Type State:** Model the entire communication lifecycle as a state machine where functions consume a state token and produce the next state token. This would use Rust's affine types (e.g., passing a channel from state `Ready` to state `WaitingForResponse`).
+    * *Goal:* Guarantee that a `Response` message is only ever processed after a corresponding `Request` has been sent.
+* **Integration with Deductive Verifiers:** Explore integrating tools like **Verus** or **Prusti** to write formal specifications (pre/post-conditions, loop invariants) directly into the Rust message handling code.
+    * *Benefit:* Mathematically prove security properties, such as non-interference or absence of specific error states, that are difficult to guarantee with type checking alone.
+* **Model Checking:** For complex, concurrent communication patterns, explore abstracting the protocol into a formal model and using a **Model Checker** (like Spin or TLA+) to exhaustively test temporal security properties (e.g., "A critical resource is eventually released," or "Two specific actions never happen concurrently").
 
 ## 4. Academic Context & Further Reading
 
