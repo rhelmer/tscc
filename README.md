@@ -113,9 +113,10 @@ The goal of leveraging the compiler's strength for security is not new; it is an
 The core idea of enforcing correctness through Rust's type system is a form of **Lightweight Formal Methods**. This is a powerful trend in the development of high-assurance software, especially for operating system kernels, hypervisors, and security-critical infrastructure.
 
 * **Verus / Prusti / Creusot:** These projects are SMT-based (Satisfiability Modulo Theories) verifiers that allow developers to write formal specifications (pre/post-conditions, invariants) directly into Rust code. TSCC's use of types to enforce a rule that **cannot be violated** aligns with the spirit of these more advanced techniques.
-    * *Source:* The Prusti Project: Formal Verification for Rust (ResearchGate)
-    * *Source:* Verus: Verifying Rust Programs using Linear Ghost Types (extended version) (arXiv)
-* **The RustBelt Project:** This foundational work provides the formal semantic model for Rust's `unsafe` code and ownership model, ensuring the core memory safety guarantees hold even at the lowest level. The *safe* abstractions built on top of this (like TSCC) inherit these guarantees.
+    * *Source:* [The Prusti Project: Formal Verification for Rust (ResearchGate)](https://www.researchgate.net/publication/360716882_The_Prusti_Project_Formal_Verification_for_Rust)
+    * *Source:* [Verus: Verifying Rust Programs using Linear Ghost Types (extended version) (arXiv)](https://arxiv.org/abs/2303.05491)
+* **The RustBelt Project:** This foundational work provides the formal semantic model for Rust's `unsafe` code and ownership model, ensuring the core memory safety guarantees hold even at the lowest level. The *safe* abstractions built on top of this (like TSCC) inherit these guarantees
+*   * *Source:* [RustBelt: Securing the Foundations of the Rust Programming Language](https://plv.mpi-sws.org/rustbelt/popl18/)
 
 ### 4.2. Web Standard and Browser Security
 
