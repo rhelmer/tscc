@@ -42,7 +42,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 3. DEMO: Protocol Message with Policy Enforcement (Failure Case)
 
     println!("\n-------------------------------------------");
-    println!("[3. POLICY ENFORCEMENT DEMO: FAILURE]");
+    println!("[3. POLICY ENFORCEMENT DEMO: EXPECTED FAILURE]");
 
     // The message includes an origin that is NOT listed in the OriginPolicy enum.
     let untrusted_origin = "https://untrusted.evil.com".to_string();
