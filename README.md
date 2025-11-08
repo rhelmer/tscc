@@ -2,7 +2,7 @@
 
 ## Formally Verified Web Standards and Message Passing in Rust
 
-This project demonstrates two critical use cases for formal verification via Rust's type system:
+This project demonstrates two use cases for formal verification via Rust's type system:
 
 1.  **Compile-Time Protocol Verification:** Guaranteeing message passing integrity.
 2.  **Web Standard Invariant Enforcement:** Creating types that can only represent valid, policy-compliant states for web concepts (like communication origins).
@@ -13,7 +13,7 @@ This project demonstrates two critical use cases for formal verification via Rus
 
 We model the entire communication protocol using **Algebraic Data Types (ADTs)**, forcing the **compiler** to verify the completeness and exhaustiveness of our communication handlers.
 
-### High-Level System Design (Flowchart Corrected)
+### High-Level System Design (Flowchart)
 
 ```mermaid
 flowchart TD
@@ -31,7 +31,7 @@ flowchart TD
     style J fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-### Type-Verification Architecture (Class Diagram Corrected)
+### Type-Verification Architecture (Class Diagram)
 
 ```mermaid
 classDiagram
