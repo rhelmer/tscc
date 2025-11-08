@@ -1,6 +1,4 @@
-use tscc::{
-    handle_message, mock_transport, PolicyAction, ProtocolMessage, RequestMessage, VerifiedUrl,
-};
+use tscc::{handle_message, mock_transport, ProtocolMessage, RequestMessage, VerifiedUrl};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("--- TSCC Demo: Formal Verification in Rust ---\n");
